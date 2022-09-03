@@ -41,6 +41,8 @@ import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
 import { useToast } from "vue-toastification";
 import api from '@/service/api';
+import { localStorageStore } from '@/contexts/LocalStorage';
+import { userStore } from '@/contexts/User';
 
 export default {
   name: 'LoginPage',
@@ -63,10 +65,14 @@ export default {
       api.post('/login', {
         email: this.email,
         password: this.password
-      }).then(() => {
+      }).then((data) => {
+        localStorageStore.asyncLocalStorage.setItem('token', data.data.token).then(() => {
+          this.$router.push('/feed')
+        })
+        userStore.loadContext()
         toast.success('Login realizado com sucesso!');
-        this.$router.push('/home')
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         toast.error('Erro ao realizar login!');
       })
     }
