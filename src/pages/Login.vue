@@ -7,11 +7,12 @@
       <form action="" class="my-10">
         <div class="flex flex-col space-y-5">
           <label for="email">
-            <InputLoginRegister id="email" type="email" label="Endereço de Email"
+            <InputLoginRegister id="email" type="email" v-model="email" label="Endereço de Email"
               placeholder="Entre com seu endereço de email" />
           </label>
           <label for="password">
-            <InputLoginRegister id="password" type="password" label="Senha" placeholder="Entre com sua senha" />
+            <InputLoginRegister id="password" type="password" v-model="password" label="Senha"
+              placeholder="Entre com sua senha" />
           </label>
           <div class="flex flex-row justify-between">
             <div>
@@ -39,6 +40,7 @@
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
 import { useToast } from "vue-toastification";
+import api from '@/service/api';
 
 export default {
   name: 'LoginPage',
@@ -57,9 +59,16 @@ export default {
       this.$router.push('/register')
     },
     handleLogin() {
-      console.log('Login')
       const toast = useToast();
-      toast.success('Login realizado com sucesso!')
+      api.post('/login', {
+        email: this.email,
+        password: this.password
+      }).then(() => {
+        toast.success('Login realizado com sucesso!');
+        this.$router.push('/home')
+      }).catch(() => {
+        toast.error('Erro ao realizar login!');
+      })
     }
   }
 }

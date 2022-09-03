@@ -5,21 +5,23 @@
       <form class="my-10">
         <div class="flex flex-col space-y-5">
           <label for="name">
-            <InputLoginRegister id="name" type="text" label="Nome" placeholder="Entre com seu nome" />
+            <InputLoginRegister id="name" v-model="name" type="text" label="Nome" placeholder="Entre com seu nome" />
           </label>
           <label for="nick">
-            <InputLoginRegister id="nick" type="text" label="Apelido" placeholder="Entre com seu apelido" />
+            <InputLoginRegister id="nick" v-model="nick" type="text" label="Apelido"
+              placeholder="Entre com seu apelido" />
           </label>
           <label for="email">
-            <InputLoginRegister id="email" type="email" label="Endereço de Email"
+            <InputLoginRegister id="email" v-model="email" type="email" label="Endereço de Email"
               placeholder="Entre com seu endereço de email" />
           </label>
           <label for="password">
-            <InputLoginRegister id="password" type="password" label="Senha" placeholder="Entre com sua senha" />
+            <InputLoginRegister id="password" v-model="password" type="password" label="Senha"
+              placeholder="Entre com sua senha" />
           </label>
           <label for="password_confirmation">
-            <InputLoginRegister id="password_confirmation" type="password" label="Confirme sua senha"
-              placeholder="Confirme sua senha" />
+            <InputLoginRegister id="password_confirmation" v-model="password_confirmation" type="password"
+              label="Confirme sua senha" placeholder="Confirme sua senha" />
           </label>
           <ButtonLoginRegister @click-btn="handleRegister">Cadastrar</ButtonLoginRegister>
           <p class="text-center">Ja tem uma conta? <a href="#" v-on:click="handleRedirectLogin"
@@ -39,6 +41,7 @@
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
 import api from './../service/api'
+import { useToast } from 'vue-toastification';
 
 export default {
   name: 'RegisterPage',
@@ -60,7 +63,8 @@ export default {
       this.$router.push('/login')
     },
     handleRegister() {
-      api.post("/register", {
+      const toast = useToast();
+      api.post("/user", {
         name: this.name,
         nick: this.nick,
         email: this.email,
@@ -68,8 +72,9 @@ export default {
         password_confirmation: this.password_confirmation
       }).then(() => {
         this.$router.push('/login')
+        toast.success('Cadastro realizado com sucesso!')
       }).catch((error) => {
-        console.log(error)
+        toast.error(error.response.data.error)
       })
     },
   }
