@@ -2,7 +2,7 @@
   <div class="antialiased bg-purple-100 min-h-screen flex flex-row justify-center items-center py-10">
     <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow shadow-slate-300 md:w-6/12">
       <h1 class="text-4xl font-medium">Cadastrar no DevBook</h1>
-      <form action="" class="my-10">
+      <form class="my-10">
         <div class="flex flex-col space-y-5">
           <label for="name">
             <InputLoginRegister id="name" type="text" label="Nome" placeholder="Entre com seu nome" />
@@ -21,8 +21,8 @@
             <InputLoginRegister id="password_confirmation" type="password" label="Confirme sua senha"
               placeholder="Confirme sua senha" />
           </label>
-          <ButtonLoginRegister>Cadastrar</ButtonLoginRegister>
-          <p class="text-center">Ja tem uma conta? <a href="#" v-on:click="login"
+          <ButtonLoginRegister @click-btn="handleRegister">Cadastrar</ButtonLoginRegister>
+          <p class="text-center">Ja tem uma conta? <a href="#" v-on:click="handleRedirectLogin"
               class="text-indigo-600 font-medium inline-flex space-x-1 items-center"><span>Fazer login
               </span><span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
@@ -38,6 +38,8 @@
 <script>
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
+import api from './../service/api'
+
 export default {
   name: 'RegisterPage',
   components: {
@@ -54,9 +56,22 @@ export default {
     }
   },
   methods: {
-    login() {
+    handleRedirectLogin() {
       this.$router.push('/login')
-    }
+    },
+    handleRegister() {
+      api.post("/register", {
+        name: this.name,
+        nick: this.nick,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      }).then(() => {
+        this.$router.push('/login')
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
   }
 }
 </script>

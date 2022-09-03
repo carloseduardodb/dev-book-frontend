@@ -1,5 +1,5 @@
 <template>
-  <button class="w-full py-3 font-medium text-white bg-indigo-600 
+  <button type="button" class="w-full py-3 font-medium text-white bg-indigo-600 
     hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow 
     inline-flex space-x-2 items-center justify-center" :class="type" @click="onClick">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     onClick() {
-      this.$emit('click')
+      this.$emit('clickBtn')
     }
   }
 }

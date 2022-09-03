@@ -21,8 +21,8 @@
               </label>
             </div>
           </div>
-          <ButtonLoginRegister>Entrar</ButtonLoginRegister>
-          <p class="text-center">Ainda não tem uma conta? <a href="#" v-on:click="register"
+          <ButtonLoginRegister @click-btn="handleLogin">Entrar</ButtonLoginRegister>
+          <p class="text-center">Ainda não tem uma conta? <a href="#" v-on:click="handleRedirectRegister"
               class="text-indigo-600 font-medium inline-flex space-x-1 items-center"><span>Cadastre-se agora
               </span><span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
@@ -38,6 +38,8 @@
 <script>
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'LoginPage',
   components: {
@@ -51,8 +53,13 @@ export default {
     }
   },
   methods: {
-    register() {
+    handleRedirectRegister() {
       this.$router.push('/register')
+    },
+    handleLogin() {
+      console.log('Login')
+      const toast = useToast();
+      toast.success('Login realizado com sucesso!')
     }
   }
 }
