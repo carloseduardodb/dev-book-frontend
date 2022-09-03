@@ -21,6 +21,8 @@ export const userStore = reactive({
     }).catch((err) => {
       console.log(err)
       const toast = useToast();
+      userStore.user = null;
+      userStore.logout();
       toast.error("Erro ao carregar dados do usuário!")
     }).finally(() => {
       userStore.isLoaded = false
@@ -43,5 +45,9 @@ export const userStore = reactive({
         window.location.href = '/login'
       }
     })
+  },
+  logout() {
+    localStorageStore.asyncLocalStorage.removeItem('token')
+    window.location.href = '/login'
   }
 })
