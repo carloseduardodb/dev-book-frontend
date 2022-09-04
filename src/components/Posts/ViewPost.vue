@@ -19,7 +19,7 @@
           />
         </button>
         <!-- svg delete -->
-        <button class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600">
+        <button class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600" @click="deletePost">
           <img class="h-6 w-6" src="./../../assets/trash.svg" alt="" />
         </button>
       </div>

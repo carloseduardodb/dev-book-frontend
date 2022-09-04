@@ -16,6 +16,7 @@
         <ViewPost
           v-on:like="handleLikePost"
           v-on:unlike="handleUnlikePost"
+          v-on:delete="handleDeletePost"
           :id="post.id"
           :title="post.title"
           :content="post.content"
@@ -88,6 +89,11 @@ export default {
           }
           return post;
         });
+      })
+    },
+    handleDeletePost(id) {
+      api.delete(`/post/${id}`).then(() => {
+        this.posts = this.posts.filter((post) => post.id !== id);
       })
     },
   },
