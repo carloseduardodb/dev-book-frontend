@@ -115,7 +115,7 @@ export default {
     };
   },
   mounted() {
-    this.searchUser(this.$route.params.name);
+    this.searchUser(this.$route.params.searchTerm);
   },
 };
 </script>
