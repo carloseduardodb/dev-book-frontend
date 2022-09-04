@@ -1,4 +1,6 @@
-# new-app
+# DevBook
+
+### Frontend em VueJS para consumir API <a href="https://github.com/carloseduardodb/api-dev-book">DevBook</a> em GoLang
 
 ## Project setup
 ```
