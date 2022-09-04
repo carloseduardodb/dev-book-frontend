@@ -11,15 +11,15 @@
       }}</time>
       <div class="flex flex-row gap-3" v-if="nick === userStore.user.nick">
         <!-- svg edit -->
-        <button>
+        <button class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600" @click="editPost">
           <img
-            class="h-6 w-6 text-red-500"
+            class="h-6 w-6"
             src="./../../assets/edit.svg"
             alt=""
           />
         </button>
         <!-- svg delete -->
-        <button>
+        <button class="bg-blue-500 p-2 rounded-lg hover:bg-blue-600">
           <img class="h-6 w-6" src="./../../assets/trash.svg" alt="" />
         </button>
       </div>
@@ -95,6 +95,14 @@ export default {
     return {
       userStore: userStore,
     };
+  },
+  methods: {
+    editPost() {
+      this.$router.push(`/edit-post/${this.id}`);
+    },
+    deletePost() {
+      this.$emit("delete", this.id);
+    },
   },
   components: {
     ButtonSubmit: ButtonSubmit,
