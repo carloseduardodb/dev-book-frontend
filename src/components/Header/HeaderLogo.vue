@@ -44,6 +44,7 @@ export default {
         toast.warning("Digite um nome para pesquisar");
       }else {
         this.$router.push("/search/" + this.search);
+        this.$emit("search", this.search);
       }
     },
   },
