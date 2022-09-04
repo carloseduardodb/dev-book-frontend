@@ -4,12 +4,12 @@
   >
     <div class="flex flex-row justify-between">
       <!-- created -->
-      <time class="text-lg font-semibold text-gray-900 dark:text-white"
-        >{{ new Date(created_at).toLocaleDateString('pt-br', {
-          formatMatcher: 'best fit',
-        }) }}</time
-      >
-      <div class="flex flex-row gap-3" v-if="nick === userStore.user.nick" >
+      <time class="text-lg font-semibold text-gray-900 dark:text-white">{{
+        new Date(created_at).toLocaleDateString("pt-br", {
+          formatMatcher: "best fit",
+        })
+      }}</time>
+      <div class="flex flex-row gap-3" v-if="nick === userStore.user.nick">
         <!-- svg edit -->
         <button>
           <img
@@ -26,9 +26,9 @@
     </div>
     <ol class="mt-3 divide-y divider-gray-200 dark:divide-gray-700">
       <li>
-        <a
+        <div
           href="#"
-          class="block items-center p-3 sm:flex hover:bg-gray-100 dark:hover:bg-gray-700"
+          class="block items-center p-3 sm:flex hover:bg-gray-100 rounded-2xl dark:hover:bg-gray-700"
         >
           <div class="w-full flex items-center">
             <img
@@ -44,26 +44,28 @@
               <span
                 class="inline-flex items-center text-md my-2 font-normal text-gray-500 dark:text-gray-400"
               >
-                0 Curtidas
+                {{ likes ?? "0" }} Curtidas
               </span>
             </div>
           </div>
-          <button
-            class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          >
-            Curtir
-          </button>
-        </a>
+          <ButtonSubmit @click="liked ? this.$emit('unlike', id) : this.$emit('like', id)">
+            {{ liked ? "Descurtir" : "Curtir" }}
+          </ButtonSubmit>
+        </div>
       </li>
     </ol>
   </div>
 </template>
 
 <script>
-import { userStore } from '@/contexts/User';
-
+import { userStore } from "@/contexts/User";
+import ButtonSubmit from "../Buttons/ButtonSubmit.vue";
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -84,11 +86,18 @@ export default {
       type: String,
       required: true,
     },
+    liked: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
       userStore: userStore,
     };
+  },
+  components: {
+    ButtonSubmit: ButtonSubmit,
   },
 };
 </script>

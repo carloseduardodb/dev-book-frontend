@@ -7,16 +7,22 @@
     </div>
 
     <!-- Posts -->
-    <div
-      v-if="posts.length > 0"
-    >
-      <div class="bg-white border-none rounded-md my-2 px-5" v-for="post in posts" :key="post.id">
+    <div v-if="posts.length > 0">
+      <div
+        class="bg-white border-none rounded-md my-2 px-5"
+        v-for="post in posts"
+        :key="post.id"
+      >
         <ViewPost
-        :title="post.title"
-        :content="post.content"
-        :created_at="post.created_at"
-        :nick="post.author_nick"
-        likes="0"
+          v-on:like="handleLikePost"
+          v-on:unlike="handleUnlikePost"
+          :id="post.id"
+          :title="post.title"
+          :content="post.content"
+          :created_at="post.created_at"
+          :nick="post.author_nick"
+          :likes="post.likes"
+          :liked="post.liked"
         />
       </div>
     </div>
@@ -56,8 +62,33 @@ export default {
   methods: {
     async getPosts() {
       const response = await api.get("/posts");
-      console.log(response.data);
       this.posts = response.data;
+    },
+    handleLikePost(id) {
+      api.post(`/post/${id}/like`).then(() => {
+        this.posts = this.posts.map((post) => {
+          if (post.id === id) {
+            post.liked = true;
+            if(post.likes) {
+              post.likes += 1;
+            } else {
+              post.likes = 1;
+            }
+          }
+          return post;
+        });
+      })
+    },
+    handleUnlikePost(id) {
+      api.post(`/post/${id}/unlike`).then(() => {
+        this.posts = this.posts.map((post) => {
+          if (post.id === id) {
+            post.liked = false;
+            post.likes -= 1;
+          }
+          return post;
+        });
+      })
     },
   },
   watch: {
