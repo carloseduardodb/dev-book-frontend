@@ -4,7 +4,7 @@
       <h1 class="text-4xl font-medium">Entrar no DevBook</h1>
       <br />
       <p class="text-slate-500">Olá, Bem vindo de volta 👋</p>
-      <form action="" class="my-10">
+      <form action="" autocomplete="on" class="my-10">
         <div class="flex flex-col space-y-5">
           <label for="email">
             <InputLoginRegister id="email" type="email" v-model="email" label="Endereço de Email"

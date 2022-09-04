@@ -1,7 +1,6 @@
 import { reactive } from 'vue'
 
 export const localStorageStore = reactive({
-  isLoaded: false,
   asyncLocalStorage: {
     setItem: function (key, value) {
       return Promise.resolve().then(function () {

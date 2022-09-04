@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import BodyAfterLogin from './../components/BodyAfterLogin.vue'
+import BodyAfterLogin from './../templates/BodyAfterLogin.vue'
 export default {
   name: 'SearchUserPage',
   components: {
