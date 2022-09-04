@@ -11,6 +11,11 @@ export const localStorageStore = reactive({
       return Promise.resolve().then(function () {
         return localStorage.getItem(key);
       });
+    },
+    removeItem: function (key) {
+      return Promise.resolve().then(function () {
+        localStorage.removeItem(key);
+      });
     }
   }
 })
