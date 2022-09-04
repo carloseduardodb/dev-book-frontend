@@ -40,7 +40,7 @@
 <script>
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
-import api from './../service/api'
+import { api } from './../service/api'
 import { useToast } from 'vue-toastification';
 
 export default {

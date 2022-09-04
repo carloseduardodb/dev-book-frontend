@@ -1,4 +1,4 @@
-import api from '@/service/api'
+import { api } from '@/service/api'
 import { reactive } from 'vue'
 import { useToast } from "vue-toastification";
 import { localStorageStore } from './LocalStorage';

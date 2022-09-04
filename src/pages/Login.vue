@@ -40,7 +40,7 @@
 import InputLoginRegister from '../components/Inputs/InputLoginRegister.vue'
 import ButtonLoginRegister from '../components/Buttons/ButtonLoginRegister.vue'
 import { useToast } from "vue-toastification";
-import api from '@/service/api';
+import { api, setToken } from '@/service/api';
 import { localStorageStore } from '@/contexts/LocalStorage';
 import { userStore } from '@/contexts/User';
 
@@ -67,10 +67,11 @@ export default {
         password: this.password
       }).then((data) => {
         localStorageStore.asyncLocalStorage.setItem('token', data.data.token).then(() => {
-          this.$router.push('/feed')
+          setToken();
+          this.$router.push('/feed');
+          userStore.loadContext()
+          toast.success('Login realizado com sucesso!');
         })
-        userStore.loadContext()
-        toast.success('Login realizado com sucesso!');
       }).catch((err) => {
         console.log(err)
         toast.error('Erro ao realizar login!');
