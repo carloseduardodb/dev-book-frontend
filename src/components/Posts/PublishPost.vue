@@ -39,6 +39,7 @@ export default {
         .then(() => {
           this.title = "";
           this.content = "";
+          this.$emit("publish-post");
         })
         .catch((error) => {
           console.log(error);

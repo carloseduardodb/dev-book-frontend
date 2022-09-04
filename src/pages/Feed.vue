@@ -3,7 +3,7 @@
     <!-- Publish Post -->
     <div class="bg-white border-none rounded-md my-2 px-5">
       <HeaderLogo> Feed </HeaderLogo>
-      <PublishPost />
+      <PublishPost @publish-post="getPosts" />
     </div>
 
     <!-- Posts -->
@@ -65,14 +65,14 @@ export default {
     async getPosts() {
       await api.get("/posts").then((response) => {
         this.posts = response.data;
-      })
+      });
     },
     handleLikePost(id) {
       api.post(`/post/${id}/like`).then(() => {
         this.posts = this.posts.map((post) => {
           if (post.id === id) {
             post.liked = true;
-            if(post.likes) {
+            if (post.likes) {
               post.likes += 1;
             } else {
               post.likes = 1;
@@ -80,7 +80,7 @@ export default {
           }
           return post;
         });
-      })
+      });
     },
     handleUnlikePost(id) {
       api.post(`/post/${id}/unlike`).then(() => {
@@ -91,12 +91,12 @@ export default {
           }
           return post;
         });
-      })
+      });
     },
     handleDeletePost(id) {
       api.delete(`/post/${id}`).then(() => {
         this.posts = this.posts.filter((post) => post.id !== id);
-      })
+      });
     },
   },
   watch: {
