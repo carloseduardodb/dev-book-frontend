@@ -52,7 +52,8 @@ export default {
       posts: [],
     };
   },
-  mounted() {
+  async mounted() {
+    await this.getPosts();
     const interval = setInterval(() => {
       this.user = userStore.user;
       if (!userStore.isLoaded) {
@@ -62,8 +63,9 @@ export default {
   },
   methods: {
     async getPosts() {
-      const response = await api.get("/posts");
-      this.posts = response.data;
+      await api.get("/posts").then((response) => {
+        this.posts = response.data;
+      })
     },
     handleLikePost(id) {
       api.post(`/post/${id}/like`).then(() => {
