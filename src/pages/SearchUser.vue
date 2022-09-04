@@ -2,15 +2,8 @@
   <BodyAfterLogin>
     <!-- Publish Post -->
     <div class="bg-white border-none rounded-md my-2 px-5">
-      <button class="bg-gray-800 text-white px-5 py-2 rounded-full mt-5">Voltar</button>
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-1 lg:px-2 flex flex-row justify-between">
-        <h1 class="text-3xl font-bold text-gray-800">Pesquisar</h1>
-        <div class="flex gap-5">
-          <input type="text" name="" id="" placeholder="Pesquise por um usuário"
-            class="bg-gray-200 rounded-md px-2 py-1">
-          <h1 class="text-3xl font-bold text-gray-700"><span class="text-blue-500">Dev</span>Book</h1>
-        </div>
-      </div>
+      <button class="bg-gray-800 text-white px-5 py-2 rounded-full mt-5" @click="back" >Voltar</button>
+      <HeaderLogo>Search</HeaderLogo>
     </div>
 
     <div class="bg-white rounded-md">
@@ -40,10 +33,17 @@
 
 <script>
 import BodyAfterLogin from './../templates/BodyAfterLogin.vue'
+import HeaderLogo from '@/components/Header/HeaderLogo.vue';
 export default {
   name: 'SearchUserPage',
   components: {
-    BodyAfterLogin: BodyAfterLogin
+    BodyAfterLogin: BodyAfterLogin,
+    HeaderLogo: HeaderLogo
+  },
+  methods: {
+    back() {
+      this.$router.push('/feed');
+    }
   },
 }
 </script>
